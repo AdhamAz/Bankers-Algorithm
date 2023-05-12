@@ -6,13 +6,11 @@ class BankersAlgorithmGUI:
         self.root = root
         self.root.title("Banker's Algorithm")
         
-        # Labels
         tk.Label(root, text="Total Resources:").grid(row=0, column=0, padx=10, pady=5)
         tk.Label(root, text="Available Resources:").grid(row=1, column=0, padx=10, pady=5)
         tk.Label(root, text="Current Allocation:").grid(row=2, column=0, padx=10, pady=5)
         tk.Label(root, text="Maximum Need:").grid(row=3, column=0, padx=10, pady=5)
         
-        # Entry fields
         self.total_resources_entry = tk.Entry(root)
         self.total_resources_entry.grid(row=0, column=1, padx=10, pady=5)
         
@@ -25,7 +23,6 @@ class BankersAlgorithmGUI:
         self.maximum_need_entry = tk.Text(root, width=30, height=8)
         self.maximum_need_entry.grid(row=3, column=1, padx=10, pady=5)
         
-        # Buttons
         self.check_button = tk.Button(root, text="Check Safety", command=self.check_safety)
         self.check_button.grid(row=4, column=0, columnspan=2, padx=10, pady=10)
     
@@ -45,27 +42,23 @@ class BankersAlgorithmGUI:
         if input_data:
             total_resources, available_resources, current_allocation, maximum_need = input_data
 
-        # Initialize the necessary variables
             work = available_resources.copy()
             finish = [False] * len(current_allocation)
             need = [[maximum_need[i][j] - current_allocation[i][j] for j in range(len(total_resources))] for i in range(len(current_allocation))]
             safe_sequence = []
 
-        # Find a process that can be executed
             def find_process():
                 for i in range(len(current_allocation)):
                     if not finish[i] and all(need[i][j] <= work[j] for j in range(len(total_resources))):
                         return i
                 return None
 
-        # Execute the Banker's algorithm
             while True:
                 process = find_process()
 
                 if process is None:
                     break
 
-            # Execute the process and release its resources
                 finish[process] = True
                 work = [work[j] + current_allocation[process][j] for j in range(len(total_resources))]
                 safe_sequence.append(process)
@@ -76,11 +69,6 @@ class BankersAlgorithmGUI:
                 messagebox.showwarning("System Safety", "The system is in an unsafe state.")
 
 
-# Create the Tkinter window
 root = tk.Tk()
-
-# Create the BankersAlgorithmGUI object
 bankers_gui = BankersAlgorithmGUI(root)
-
-# Start the Tkinter event loop
 root.mainloop()
