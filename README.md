@@ -3,6 +3,7 @@ Name: Adham Hitham Mohamed
 ID: 19105014
 
 #BRIEF: 
+
 This is a simple Python code to implement the Banker's algorithm, the version of Python I used is 3.8.10 and I only needed to import tkinter for GUI purposes.
 
 #DESCRIPTION: 
